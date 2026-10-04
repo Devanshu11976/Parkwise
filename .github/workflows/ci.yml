@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: parkwise
+          POSTGRES_USER: parkwise
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5435:5432
+        options: >-
+          --health-cmd "pg_isready -U parkwise -d parkwise"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - run: ./mvnw -q test
+        env:
+          DB_URL: jdbc:postgresql://localhost:5435/parkwise?options=-c%20TimeZone%3DUTC
+          DB_USERNAME: parkwise
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate frontend files
+        run: |
+          test -f frontend/index.html
+          test -f frontend/js/app.js
+          test -f frontend/js/api.js
+          test -f frontend/js/config.js
+          grep -q "const API='/api'" frontend/js/config.js

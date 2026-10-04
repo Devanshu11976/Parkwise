@@ -1,0 +1,130 @@
+
+### Create a parking facility
+POST http://localhost:8080/api/facilities
+Content-Type: application/json
+
+{
+  "name": "ParkWise Central",
+  "address": "Sector 17",
+  "city": "Chandigarh",
+  "timezone": "Asia/Kolkata",
+  "active": true
+}
+
+### Get all facilities
+GET http://localhost:8080/api/facilities
+### Get facility by ID
+GET http://localhost:8080/api/facilities/6e9409e6-c223-4b38-b75d-da97bf25740b
+### Get facility by ID
+GET http://localhost:8080/api/facilities/6e9409e6-c223-4b38-b75d-da97bf25740b
+
+### Test facility not found
+GET http://localhost:8080/api/facilities/00000000-0000-0000-0000-000000000000
+
+
+### Update a parking facility
+PUT http://localhost:8080/api/facilities/6e9409e6-c223-4b38-b75d-da97bf25740b
+Content-Type: application/json
+
+{
+  "name": "ParkWise Premium",
+  "address": "Sector 22",
+  "city": "Chandigarh",
+  "timezone": "Asia/Kolkata",
+  "active": true
+}
+###
+GET http://localhost:8080/api/facilities/6e9409e6-c223-4b38-b75d-da97bf25740b
+
+### Delete facility
+DELETE http://localhost:8080/api/facilities/6e9409e6-c223-4b38-b75d-da97bf25740b
+
+### Create a floor
+POST http://localhost:8080/api/facilities/d121cfd9-5732-48b2-b991-30887a48f2ea/floors
+Content-Type: application/json
+
+{
+  "floorNumber": 1,
+  "name": "Ground Floor"
+}
+
+
+### Get all floors
+GET http://localhost:8080/api/floors
+### Get floor by ID
+GET http://localhost:8080/api/floors/8ea2d86b-45aa-429d-be1c-3f1516da1aa2
+
+### Update floor
+PUT http://localhost:8080/api/floors/8ea2d86b-45aa-429d-be1c-3f1516da1aa2
+Content-Type: application/json
+
+{
+  "floorNumber": 2,
+  "name": "First Floor"
+}
+
+### Delete floor
+DELETE http://localhost:8080/api/floors/8ea2d86b-45aa-429d-be1c-3f1516da1aa2
+
+
+### Create floor
+POST http://localhost:8080/api/facilities/d121cfd9-5732-48b2-b991-30887a48f2ea/floors
+Content-Type: application/json
+
+{
+  "floorNumber": 1,
+  "name": "Ground Floor"
+}
+
+
+
+### Create floor
+POST http://localhost:8080/api/facilities/d121cfd9-5732-48b2-b991-30887a48f2ea/floors
+Content-Type: application/json
+
+{
+  "floorNumber": 1,
+  "name": "Ground Floor"
+}
+###
+POST http://localhost:8080/api/facilities/d121cfd9-5732-48b2-b991-30887a48f2ea/floors
+Content-Type: application/json
+
+{
+  "floorNumber": 1,
+  "name": "Ground Floor"
+}
+###
+GET http://localhost:8080/api/floors
+
+###
+POST http://localhost:8080/api/floors/d3f992bf-3f58-4a68-aaa7-17213325d37c/slots
+Content-Type: application/json
+
+{
+  "slotNumber": "A-101",
+  "vehicleType": "CAR",
+  "hasEvCharger": true,
+  "status": "AVAILABLE"
+}
+###
+GET http://localhost:8080/api/slots
+###
+GET http://localhost:8080/api/slots/fedd4276-83b2-47b9-ae88-946029bbdd78
+
+###
+PUT http://localhost:8080/api/slots/fedd4276-83b2-47b9-ae88-946029bbdd78
+Content-Type: application/json
+
+{
+  "slotNumber": "A-102",
+  "vehicleType": "CAR",
+  "hasEvCharger": true,
+  "status": "AVAILABLE"
+}
+
+###
+DELETE http://localhost:8080/api/slots/fedd4276-83b2-47b9-ae88-946029bbdd78
+
+###
+http://localhost:8080/api/users

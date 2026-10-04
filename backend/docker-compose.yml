@@ -1,0 +1,16 @@
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: parkwise-db
+    environment:
+      POSTGRES_DB: parkwise
+      POSTGRES_USER: parkwise
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5435:5432"
+    volumes:
+      - parkwise_data:/var/lib/postgresql/data
+
+volumes:
+  parkwise_data:

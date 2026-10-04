@@ -1,0 +1,9 @@
+const API='/api';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=d=>new Date(d).toLocaleString([], {dateStyle:'medium',timeStyle:'short'});
+const S={u:JSON.parse(localStorage.getItem('pw_u')||'null'),tab:null,mode:'in',d:{},book:{res:null,sel:null,q:null},ai:{prompt:'',result:null,loading:false},filter:'ALL'};
+const TABS={CUSTOMER:[['book','Book a slot'],['ai','🤖 AI Slot Finder'],['my','My bookings']],ADMIN:[['ov','Overview'],['slots','Slots'],['fac','Facilities'],['bk','Bookings']]};
+const VT=['CAR','BIKE','SUV','VAN'],ST=['AVAILABLE','MAINTENANCE','OUT_OF_SERVICE'];
+
+const VIEWS={};

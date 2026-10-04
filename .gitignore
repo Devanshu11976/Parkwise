@@ -1,0 +1,39 @@
+# Build output and local tooling
+backend/target/
+frontend/node_modules/
+frontend/__pycache__/
+**/*.pyc
+**/build/
+*.zip
+
+# IDE and OS files
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Local backup and alternate source snapshots
+frontend-backup-*/
+/parkwise/
+backend.zip
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+application-local.yml
+application-local.yaml
+application-local.properties
+**/*-secrets.*
+*.pem
+*.key
+*.p12
+*.jks
+
+# Logs
+*.log
+
+*.secret
+groq.key
+GROQ_API_KEY

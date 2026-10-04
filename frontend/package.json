@@ -1,0 +1,19 @@
+{
+  "name": "parkwise-frontend",
+  "version": "1.0.0",
+  "description": "Next-Gen Smart Parking & Automated Facility Management Animated React Frontend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "react",
+    "parking",
+    "smart-city",
+    "iot",
+    "ev-charging"
+  ],
+  "author": "ParkWise Team",
+  "license": "MIT"
+}
