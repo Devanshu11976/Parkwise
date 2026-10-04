@@ -1,5 +1,6 @@
 const API_BASE_URL='https://parkwise-rsor.onrender.com';
 const API=`${API_BASE_URL}/api`;
+globalThis.PARKWISE_AI_API_URL='https://parkwise-ai-9ed4.onrender.com/ai/recommend';
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=d=>new Date(d).toLocaleString([], {dateStyle:'medium',timeStyle:'short'});

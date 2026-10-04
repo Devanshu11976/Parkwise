@@ -5,8 +5,8 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-const BACKEND_HOST = '127.0.0.1';
-const BACKEND_PORT = 8080;
+const BACKEND_URL = new URL(process.env.BACKEND_URL || 'https://parkwise-rsor.onrender.com');
+const BACKEND_CLIENT = BACKEND_URL.protocol === 'https:' ? https : http;
 const PUBLIC_DIR = __dirname;
 const GROQ_API_KEY = process.env.GROQ_API_KEY || '';
 const ALLOWED_ORIGINS = new Set([
@@ -170,20 +170,21 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Reverse Proxy /api/ requests directly to Spring Boot backend at :8080
+  // Reverse proxy /api requests without rewriting the path.
   if (req.url === '/api' || req.url.startsWith('/api/')) {
     const options = {
-      hostname: BACKEND_HOST,
-      port: BACKEND_PORT,
+      protocol: BACKEND_URL.protocol,
+      hostname: BACKEND_URL.hostname,
+      port: BACKEND_URL.port || (BACKEND_URL.protocol === 'https:' ? 443 : 80),
       path: req.url,
       method: req.method,
       headers: {
         ...req.headers,
-        host: `${BACKEND_HOST}:${BACKEND_PORT}`
+        host: BACKEND_URL.host
       }
     };
 
-    const proxyReq = http.request(options, (backendRes) => {
+    const proxyReq = BACKEND_CLIENT.request(options, (backendRes) => {
       res.writeHead(backendRes.statusCode, backendRes.headers);
       backendRes.pipe(res, { end: true });
     });
@@ -192,7 +193,7 @@ const server = http.createServer((req, res) => {
       res.writeHead(502, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
         error: 'Bad Gateway',
-        message: 'Unable to connect to Spring Boot backend at http://localhost:8080. Please ensure the backend is running.',
+        message: `Unable to connect to Spring Boot backend at ${BACKEND_URL.origin}.`,
         detail: err.message
       }));
     });
@@ -247,6 +248,6 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   console.log(`\n======================================================`);
   console.log(`🚀 ParkWise Frontend Server running at: http://localhost:${PORT}`);
-  console.log(`🅿️ Proxying /api/* requests to Spring Boot: http://${BACKEND_HOST}:${BACKEND_PORT}/api`);
+  console.log(`🅿️ Proxying /api/* requests to Spring Boot: ${BACKEND_URL.origin}/api`);
   console.log(`======================================================\n`);
 });
