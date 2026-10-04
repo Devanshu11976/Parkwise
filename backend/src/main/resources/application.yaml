@@ -5,7 +5,7 @@ spring:
 
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5435/parkwise?options=-c%20TimeZone%3DUTC}
-    username: parkwise
+    username: ${DB_USERNAME:parkwise}
     password: ${DB_PASSWORD:}
     driver-class-name: org.postgresql.Driver
     hikari:
@@ -18,7 +18,7 @@ spring:
     open-in-view: false
 
   flyway:
-    enabled: true
+    enabled: ${DB_FLYWAY_ENABLED:true}
 
 management:
   endpoints:
