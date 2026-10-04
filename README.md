@@ -34,6 +34,21 @@ ParkWise is a Spring Boot parking-management API with a plain HTML/CSS/JavaScrip
 
 The backend reads `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD` environment variables. Docker Compose uses local trust authentication for development; production deployments must provide a managed database URL and credentials through environment variables. Use `.env.example` as a template and do not commit real credentials.
 
+### Supabase database
+
+Use the Supabase **direct connection** details for Spring Boot. Set the following deployment variables:
+
+```text
+DB_URL=jdbc:postgresql://db.<project-ref>.supabase.co:5432/postgres?sslmode=require&options=-c%20TimeZone%3DUTC
+DB_USERNAME=postgres
+DB_PASSWORD=<your-supabase-database-password>
+```
+
+If using Supabase's transaction pooler instead, use its host and port from the
+Supabase Connect dialog and keep `sslmode=require`. Do not commit the database
+password or a Supabase service-role key. Flyway runs against the configured
+database and creates the schema from `backend/src/main/resources/db/migration`.
+
 ## Validation
 
 ```powershell
