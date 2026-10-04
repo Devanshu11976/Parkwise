@@ -81,3 +81,17 @@ cd backend
 ## Deployment note
 
 The frontend uses same-origin `/api` requests, so production hosting must provide a reverse proxy or route `/api` to the Spring Boot service. GitHub is suitable for source hosting and CI; it does not run the Spring Boot API or PostgreSQL database by itself.
+
+### Separate AI service
+
+The AI Slot Finder calls `/ai/recommend` locally. When the frontend is hosted
+on Vercel and the Node service is hosted on Render, define
+`window.PARKWISE_AI_API_URL` before `js/views-user.js` loads, with the value:
+
+```text
+https://<your-render-ai-service>.onrender.com/ai/recommend
+```
+
+Set `GROQ_API_KEY` only in the Render Node service environment. The Node
+service allows the Vercel origins through its CORS allowlist and handles
+preflight `OPTIONS` requests.

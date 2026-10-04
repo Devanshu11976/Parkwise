@@ -1,5 +1,6 @@
 async function callGroqAI(prompt, facilities) {
-  const resp = await fetch('/ai/recommend', {
+  const aiEndpoint = globalThis.PARKWISE_AI_API_URL || '/ai/recommend';
+  const resp = await fetch(aiEndpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -158,4 +159,3 @@ async my(){
   return `<h2>My bookings</h2><p class="sub">${bk.length} total</p>${bk.length ? bk.map((b, i) => `<div class="card h" style="--i:${i}"><div class="row" style="align-items:center"><div style="flex:1"><b>${esc(b.vehicleNumber)}</b> · ${b.vehicleType}<br><small class="sub">${fmt(b.startTime)} → ${fmt(b.endTime)}</small></div><b>₹${b.totalAmount}</b><span class="badge ${b.status}">${b.status}</span>${b.status === 'CONFIRMED' ? `<button class="btn d s" data-a="cancel" data-k="${b.id}">Cancel</button>` : ''}</div></div>`).join('') : '<div class="card empty">No bookings yet.</div>'}`;
 }
 });
-

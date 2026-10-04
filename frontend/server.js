@@ -9,6 +9,12 @@ const BACKEND_HOST = '127.0.0.1';
 const BACKEND_PORT = 8080;
 const PUBLIC_DIR = __dirname;
 const GROQ_API_KEY = process.env.GROQ_API_KEY || '';
+const ALLOWED_ORIGINS = new Set([
+  'https://parkwise-zeta.vercel.app',
+  'https://parkwise-rust.vercel.app',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000'
+]);
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -144,7 +150,11 @@ Rules:
 
 const server = http.createServer((req, res) => {
   // CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const requestOrigin = req.headers.origin;
+  if (requestOrigin && (ALLOWED_ORIGINS.has(requestOrigin) || process.env.CORS_ALLOWED_ORIGINS?.split(',').map(x => x.trim()).includes(requestOrigin))) {
+    res.setHeader('Access-Control-Allow-Origin', requestOrigin);
+    res.setHeader('Vary', 'Origin');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
