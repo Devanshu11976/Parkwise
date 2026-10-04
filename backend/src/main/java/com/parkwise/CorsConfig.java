@@ -10,7 +10,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://parkwise-rust.vercel.app")
+                .allowedOrigins("https://parkwise-zeta.vercel.app")
                 .allowedMethods(
                         "GET", "POST", "PUT",
                         "PATCH", "DELETE", "OPTIONS"
