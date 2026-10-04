@@ -49,6 +49,24 @@ Supabase Connect dialog and keep `sslmode=require`. Do not commit the database
 password or a Supabase service-role key. Flyway runs against the configured
 database and creates the schema from `backend/src/main/resources/db/migration`.
 
+### Render deployment
+
+In the Render service environment settings, do not use the placeholder
+`YOUR_SUPABASE_HOST`. Copy the complete JDBC connection details from Supabase
+**Connect** and set:
+
+```text
+DB_URL=jdbc:postgresql://<actual-supabase-host>:<actual-port>/postgres?sslmode=require&options=-c%20TimeZone%3DUTC
+DB_USERNAME=<username-from-supabase-connect>
+DB_PASSWORD=<database-password>
+```
+
+For the direct Supabase connection, the host is normally
+`db.<project-ref>.supabase.co`, the port is `5432`, and the username is usually
+`postgres`. If Render cannot reach the direct host because of IPv6 networking,
+use the Supabase **Session pooler** host, port, and username instead. Do not use
+the Supabase project URL as the PostgreSQL host.
+
 ## Validation
 
 ```powershell
