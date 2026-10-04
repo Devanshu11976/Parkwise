@@ -85,7 +85,7 @@ Rules:
 - RESPOND WITH ONLY THE JSON. No other text.`;
 
     const groqPayload = JSON.stringify({
-      model: 'llama-3.3-70b-versatile',
+      model: 'openai/gpt-oss-120b',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: prompt }
