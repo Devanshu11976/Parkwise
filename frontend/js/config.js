@@ -1,4 +1,5 @@
-const API='/api';
+const API_BASE_URL='https://parkwise-rsor.onrender.com';
+const API=`${API_BASE_URL}/api`;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=d=>new Date(d).toLocaleString([], {dateStyle:'medium',timeStyle:'short'});

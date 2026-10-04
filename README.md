@@ -61,6 +61,9 @@ DB_USERNAME=<username-from-supabase-connect>
 DB_PASSWORD=<database-password>
 ```
 
+Set `CORS_ALLOWED_ORIGINS` to the deployed frontend origin when the frontend
+and backend are hosted separately. Multiple origins can be comma-separated.
+
 For the direct Supabase connection, the host is normally
 `db.<project-ref>.supabase.co`, the port is `5432`, and the username is usually
 `postgres`. If Render cannot reach the direct host because of IPv6 networking,
